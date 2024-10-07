@@ -1,9 +1,11 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Ship():
+class Ship(Sprite):
     """Класс для управление кораблем"""
     def __init__(self, ai_game):
         """Инициализирует корабль и задает его начальную позицию"""
+        super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
@@ -26,9 +28,9 @@ class Ship():
         """Обновляет позицию корабля с учётом флагов."""
         # Обновляется атрибут х, не rect.
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.x += self.settings.ship_speed
+            self.x += self.settings.ship_speed_factor
         if self.moving_left and self.rect.left > 0:
-            self.x -= self.settings.ship_speed
+            self.x -= self.settings.ship_speed_factor
 
         # Обновление атрибута rect на основании self.x
         self.rect.x = self.x
